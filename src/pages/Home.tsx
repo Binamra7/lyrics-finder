@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 import Tracks from "../components/Tracks";
+import { Button, TextField } from "@mui/material";
 
 const Home = () => {
 	const [search, setSearch] = useState("");
@@ -18,13 +19,9 @@ const Home = () => {
 			axios
 				.get(
 					`http://api.musixmatch.com/ws/1.1/track.search?q_track=${search}&page_size=10&page=1&s_track_rating=desc&apikey=84e8f51ab9cf65f8541c567217d7752e`
-					// `http://api.musixmatch.com/ws/1.1/track.search?q_track=${search}&apikey=84e8f51ab9cf65f8541c567217d7752e`
 				)
 				.then((res) => {
-					console.log(res.data);
-
 					setResults(res.data.message.body.track_list);
-					console.log("results: ", results);
 				})
 				.catch((err) => {
 					console.error(err.message);
@@ -47,8 +44,21 @@ const Home = () => {
 		<div className="App">
 			<h1>Search for the song</h1>
 			<form onSubmit={handleSearch}>
-				<input type="text" value={title} onChange={handleChange} />
-				<button value="submit">Search</button>
+				<TextField
+					id="outlined-basic"
+					label="Search Tracks"
+					variant="outlined"
+					value={title}
+					onChange={handleChange}
+				/>
+				<Button
+					variant="contained"
+					value="submit"
+					onClick={handleSearch}
+					sx={{ mx: 4, mt: 1 }}
+				>
+					Search
+				</Button>
 			</form>
 			<Tracks results={results} />
 		</div>

@@ -1,5 +1,6 @@
+import { Typography } from "@mui/material";
 import axios from "axios";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 
 const Lyrics = () => {
@@ -11,7 +12,6 @@ const Lyrics = () => {
 				`https://api.musixmatch.com/ws/1.1/track.lyrics.get?track_id=${id}&apikey=84e8f51ab9cf65f8541c567217d7752e`
 			)
 			.then((res) => {
-				console.log(res.data);
 				setLyrics(res.data.message.body.lyrics.lyrics_body);
 			})
 			.catch((err) => {
@@ -19,9 +19,11 @@ const Lyrics = () => {
 			});
 	}, [id]);
 	return (
-		<div>
-			<p>{lyrics}</p>
-		</div>
+		<pre>
+			<Typography mt={5} p={5} align="center">
+				{lyrics.length > 0 ? lyrics : "Loading..."}
+			</Typography>
+		</pre>
 	);
 };
 
