@@ -4,7 +4,7 @@ import { FC } from "react";
 import { Link } from "react-router-dom";
 
 //specify the interface for results which is array of objects
-interface Results {
+interface Result {
 	track: {
 		track_name: string;
 		artist_name: string;
@@ -14,14 +14,14 @@ interface Results {
 
 //specify the interface for props which is an object with a results property
 interface Props {
-	results: Results[];
+	results: Result[];
 }
 
 const Tracks: FC<Props> = ({ results }) => {
 	return (
 		<Container sx={{ mt: 3 }}>
 			{results[0].track.track_name !== "" &&
-				results.map((result: any, i: number) => {
+				results.map((result: Result, i: number) => {
 					return (
 						<Card variant="outlined" key={result.track.track_id}>
 							<Link to={`/lyrics/${result.track.track_id}`}>

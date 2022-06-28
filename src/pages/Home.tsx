@@ -18,7 +18,7 @@ const Home = () => {
 		if (search.length > 0) {
 			axios
 				.get(
-					`http://api.musixmatch.com/ws/1.1/track.search?q_track=${search}&page_size=10&page=1&s_track_rating=desc&apikey=84e8f51ab9cf65f8541c567217d7752e`
+					`https://api.musixmatch.com/ws/1.1/track.search?q_track=${search}&page_size=10&page=1&s_track_rating=desc&apikey=84e8f51ab9cf65f8541c567217d7752e`
 				)
 				.then((res) => {
 					setResults(res.data.message.body.track_list);
@@ -60,7 +60,11 @@ const Home = () => {
 					Search
 				</Button>
 			</form>
-			<Tracks results={results} />
+			{results[0].track.track_name.length > 0 ? (
+				<Tracks results={results} />
+			) : (
+				<h1>Search for the music to get its lyrics</h1>
+			)}
 		</div>
 	);
 };
